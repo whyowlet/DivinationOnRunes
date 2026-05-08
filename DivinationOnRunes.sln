@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivinationOnRunes.Core", "DivinationOnRunes.Core\DivinationOnRunes.Core.csproj", "{12B95F51-D376-4C89-95FA-36AA6247D648}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivinationOnRunes.Console", "DivinationOnRunes.Console\DivinationOnRunes.Console.csproj", "{D0266E48-8081-4A8C-BD46-140310A34E46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12B95F51-D376-4C89-95FA-36AA6247D648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12B95F51-D376-4C89-95FA-36AA6247D648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12B95F51-D376-4C89-95FA-36AA6247D648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12B95F51-D376-4C89-95FA-36AA6247D648}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0266E48-8081-4A8C-BD46-140310A34E46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0266E48-8081-4A8C-BD46-140310A34E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0266E48-8081-4A8C-BD46-140310A34E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0266E48-8081-4A8C-BD46-140310A34E46}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
