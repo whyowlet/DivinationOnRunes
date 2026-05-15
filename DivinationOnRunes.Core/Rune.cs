@@ -14,6 +14,9 @@ public class Rune
     // Название руны на английском языке
     public string EnglishName { get; }
     
+    // Краткое значение, перевод названия руны
+    public string ShortMeaning { get; }
+    
     // Толкование в прямом положении
     public string UprightMeaning { get; }
     
@@ -23,12 +26,13 @@ public class Rune
     // Может ли руна выпасть в перевёрнутом положении
     public bool IsReversible { get; }
 
-    public Rune(int id, string name, string englishName,
+    public Rune(int id, string name, string englishName, string shortMeaning,
         string uprightMeaning, string reversedMeaning, bool isReversible)
     {
         Id = id;
         Name = name;
         EnglishName = englishName;
+        ShortMeaning = shortMeaning;
         UprightMeaning = uprightMeaning;
         ReversedMeaning = reversedMeaning;
         IsReversible = isReversible;
