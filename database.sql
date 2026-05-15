@@ -9,6 +9,7 @@ CREATE TABLE runes (id SERIAL PRIMARY KEY
                    , name_ru VARCHAR(50) NOT NULL UNIQUE
                    , name_eng VARCHAR(50) NOT NULL UNIQUE
                    , symbol CHAR(1) NOT NULL UNIQUE
+                   , meaning_short TEXT NOT NULL
                    , is_reversible BOOLEAN NOT NULL DEFAULT TRUE
                    , created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -17,155 +18,154 @@ CREATE TABLE rune_meanings (id SERIAL PRIMARY KEY
                            , rune_id INTEGER NOT NULL REFERENCES runes(id) ON DELETE CASCADE
                            , orientation VARCHAR(10) NOT NULL CHECK (orientation IN ('upright', 'reversed'))
                            , tradition VARCHAR(50) NOT NULL DEFAULT 'classic'
-                           , meaning_short TEXT NOT NULL
                            , meaning_text TEXT NOT NULL
                            , created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
                             UNIQUE (rune_id, orientation, tradition)
 );
 
-INSERT INTO runes (futhark_order, name_ru, name_eng, symbol, is_reversible) VALUES (1, 'Феху', 'Fehu', 'ᚠ', TRUE),
-                                                                                     (2, 'Уруз', 'Uruz', 'ᚢ', TRUE),
-                                                                                     (3, 'Турисаз', 'Thurisaz', 'ᚦ', TRUE),
-                                                                                     (4, 'Ансуз', 'Ansuz', 'ᚨ', TRUE),
-                                                                                     (5, 'Райдо', 'Raidho', 'ᚱ', TRUE),
-                                                                                     (6, 'Кеназ', 'Kenaz', 'ᚲ', TRUE),
-                                                                                     (7, 'Гебо', 'Gebo', 'ᚷ', FALSE),
-                                                                                     (8, 'Вуньо', 'Wunjo', 'ᚹ', TRUE),
-                                                                                     (9, 'Хагалаз', 'Hagalaz', 'ᚺ', FALSE),
-                                                                                     (10, 'Наутиз', 'Nauthiz', 'ᚾ', TRUE),
-                                                                                     (11, 'Иса', 'Isa', 'ᛁ', FALSE),
-                                                                                     (12, 'Йера', 'Jera', 'ᛃ', FALSE),
-                                                                                     (13, 'Эйваз', 'Eihwaz', 'ᛇ', FALSE),
-                                                                                     (14, 'Перт', 'Perthro', 'ᛈ', TRUE),
-                                                                                     (15, 'Альгиз', 'Algiz', 'ᛉ', TRUE),
-                                                                                     (16, 'Совило', 'Sowilo', 'ᛋ', FALSE),
-                                                                                     (17, 'Тейваз', 'Tiwaz', 'ᛏ', TRUE),
-                                                                                     (18, 'Беркана', 'Berkano', 'ᛒ', TRUE),
-                                                                                     (19, 'Эваз', 'Ehwaz', 'ᛖ', TRUE),
-                                                                                     (20, 'Манназ', 'Mannaz', 'ᛗ', TRUE),
-                                                                                     (21, 'Лагуз', 'Laguz', 'ᛚ', TRUE),
-                                                                                     (22, 'Ингуз', 'Ingwaz', 'ᛜ', FALSE),
-                                                                                     (23, 'Дагаз', 'Dagaz', 'ᛞ', FALSE),
-                                                                                     (24, 'Одал', 'Othala', 'ᛟ', TRUE);
+INSERT INTO runes (futhark_order, name_ru, name_eng, symbol, meaning_short, is_reversible) VALUES (1, 'Феху', 'Fehu', 'ᚠ', 'Скот, деньги, богатство', TRUE),
+                                                                                                 (2, 'Уруз', 'Uruz', 'ᚢ', 'Дикий бык, вода, дождь', TRUE),
+                                                                                                 (3, 'Турисаз', 'Thurisaz', 'ᚦ', 'Великан, шип, гигант', TRUE),
+                                                                                                 (4, 'Ансуз', 'Ansuz', 'ᚨ', 'Бог', TRUE),
+                                                                                                 (5, 'Райдо', 'Raidho', 'ᚱ', 'Поездка, путешествие', TRUE),
+                                                                                                 (6, 'Кеназ', 'Kenaz', 'ᚲ', 'Факел, язва', TRUE),
+                                                                                                 (7, 'Гебо', 'Gebo', 'ᚷ', 'Дар, копьё', FALSE),
+                                                                                                 (8, 'Вуньо', 'Wunjo', 'ᚹ', 'Радость, совершенство, работа', TRUE),
+                                                                                                 (9, 'Хагалаз', 'Hagalaz', 'ᚺ', 'Град, каркас', FALSE),
+                                                                                                 (10, 'Наутиз', 'Nauthiz', 'ᚾ', 'Нужда, потребность, жизненный урок', TRUE),
+                                                                                                 (11, 'Иса', 'Isa', 'ᛁ', 'Лёд', FALSE),
+                                                                                                 (12, 'Йера', 'Jera', 'ᛃ', 'Год, урожай, обилие', FALSE),
+                                                                                                 (13, 'Эйваз', 'Eihwaz', 'ᛇ', 'Тис', FALSE),
+                                                                                                 (14, 'Перт', 'Perthro', 'ᛈ', 'Фруктовое дерево, удача', TRUE),
+                                                                                                 (15, 'Альгиз', 'Algiz', 'ᛉ', 'Лось, защита, божественность, духовность', TRUE),
+                                                                                                 (16, 'Совило', 'Sowilo', 'ᛋ', 'Солнце', FALSE),
+                                                                                                 (17, 'Тейваз', 'Tiwaz', 'ᛏ', 'Справедливость, честность, честь', TRUE),
+                                                                                                 (18, 'Беркана', 'Berkano', 'ᛒ', 'Берёза', TRUE),
+                                                                                                 (19, 'Эваз', 'Ehwaz', 'ᛖ', 'Лошадь, гармония, сотрудничество', TRUE),
+                                                                                                 (20, 'Манназ', 'Mannaz', 'ᛗ', 'Человек, человечество', TRUE),
+                                                                                                 (21, 'Лагуз', 'Laguz', 'ᛚ', 'Озеро, океан, вода', TRUE),
+                                                                                                 (22, 'Ингуз', 'Ingwaz', 'ᛜ', 'Созревание, внутренний рост, движение', FALSE),
+                                                                                                 (23, 'Дагаз', 'Dagaz', 'ᛞ', 'День, прорыв', FALSE),
+                                                                                                 (24, 'Одал', 'Othala', 'ᛟ', 'Наследие, родовое имущество', TRUE);
 
-INSERT INTO rune_meanings (rune_id, orientation, meaning_short,
-                           meaning_text) VALUES ((SELECT id FROM runes WHERE name_ru = 'Феху'), 'upright', 'Скот, деньги, богатство',
+INSERT INTO rune_meanings (rune_id, orientation,
+                           meaning_text) VALUES ((SELECT id FROM runes WHERE name_ru = 'Феху'), 'upright',
                                                   'Материальный успех, прибыль, новые возможности для заработка. Ваши усилия принесут плоды. Хорошее время для финансовых решений.'),
                                                                    
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Феху'), 'reversed', 'Скот, деньги, богатство',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Феху'), 'reversed',
                                                   'Финансовые потери, упущенные возможности, разочарование в материальных вопросах. Не время рисковать деньгами.'),
 
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Уруз'), 'upright', 'Дикий бык, вода, дождь',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Уруз'), 'upright',
                                                   'Физическая сила, выносливость, преодоление препятствий. У вас достаточно энергии для любых задач. Хорошее здоровье.'),
 
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Уруз'), 'reversed', 'Дикий бык, вода, дождь',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Уруз'), 'reversed',
                                                   'Слабость, болезнь, недостаток энергии. Возможно, вы истощены или действуете через силу. Время восстановиться.'),
 
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Турисаз'), 'upright', 'Великан, шип, гигант',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Турисаз'), 'upright',
                                                   'Защита, разрушение препятствий, конфликт с позитивным исходом. Иногда нужно разрушить старое, чтобы построить новое.'),
 
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Турисаз'), 'reversed', 'Великан, шип, гигант',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Турисаз'), 'reversed',
                                                   'Опасность, уязвимость, бессмысленный конфликт. Не вступайте в споры сейчас — проиграете.'),
 
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Ансуз'), 'upright', 'Бог',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Ансуз'), 'upright',
                                                   'Мудрость, коммуникация, получение важной информации. Слушайте советы старших. Хорошее время для учёбы и переговоров.'),
 
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Ансуз'), 'reversed', 'Бог',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Ансуз'), 'reversed',
                                                   'Непонимание, ложь, обман. Кто-то говорит неправду или вы сами себя обманываете. Не доверяйте всему, что слышите.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Райдо'), 'upright', 'Поездка, путешествие',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Райдо'), 'upright',
                                                   'Движение вперёд, путешествие (физическое или духовное), правильное направление. Вы на верном пути.'),
 
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Райдо'), 'reversed', 'Поездка, путешествие',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Райдо'), 'reversed',
                                                   'Задержки в пути, неверное направление, застой. Возможно, стоит пересмотреть маршрут — буквально или метафорически.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Кеназ'), 'upright', 'Факел, язва',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Кеназ'), 'upright',
                                                   'Творчество, вдохновение, ясность мысли. Тьма рассеивается, вы начинаете видеть ситуацию чётко. Хорошее время для творческих проектов.'),
 
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Кеназ'), 'reversed', 'Факел, язва',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Кеназ'), 'reversed',
                                                   'Затмение, неясность, творческий кризис. Вы блуждаете в темноте. Не принимайте важных решений, пока не прояснится.'),
                                                                    
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Гебо'), 'upright', 'Дар, копьё',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Гебо'), 'upright',
                                                   'Взаимовыгодное сотрудничество, подарок, гармоничные отношения. Отдавая, вы получаете. Хорошее время для заключения договоров и союзов.'),
 
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Вуньо'), 'upright', 'Радость, совершенство, работа',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Вуньо'), 'upright',
                                                   'Успех, удовлетворение, достижение цели. Наслаждайтесь моментом — вы заслужили эту радость.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Вуньо'), 'reversed', 'Радость, совершенство, работа',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Вуньо'), 'reversed',
                                                   'Кризис, разочарование, потеря иллюзий. Радость откладывается. Но это временно — тучи разойдутся.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Хагалаз'), 'upright', 'Град, каркас',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Хагалаз'), 'upright',
                                                   'Неконтролируемые перемены, кризис, разрушение старого. Что-то в вашей жизни будет разрушено — но только то, что уже отжило своё. После града земля становится плодородной.'),
                                                                  
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Наутиз'), 'upright', 'Нужда, потребность, жизненный урок',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Наутиз'), 'upright',
                                                   'Ограничения, которые учат. Нехватка ресурсов заставляет быть изобретательным. Терпение и упорство приведут к цели.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Наутиз'), 'reversed', 'Нужда, потребность, жизненный урок',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Наутиз'), 'reversed',
                                                   'Ненужные самоограничения, бедность мышления. Вы сами создаёте себе препятствия. Освободитесь от лишнего.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Иса'), 'upright', 'Лёд',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Иса'), 'upright',
                                                   'Остановка, замораживание ситуации. Сейчас ничего не происходит — и это нормально. Используйте паузу для размышлений. Не форсируйте события.'),
                                                                         
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Йера'), 'upright', 'Год, урожай, обилие',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Йера'), 'upright',
                                                   'Заслуженная награда, результат усилий, завершение цикла. Что посеяли — то пожнёте. Если работали честно, урожай будет хорошим.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Эйваз'), 'upright', 'Тис',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Эйваз'), 'upright',
                                                   'Защита, связь с предками, преодоление страха смерти. Вы находитесь под защитой. Не бойтесь перемен — старое умирает, чтобы родилось новое.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Перт'), 'upright', 'Фруктовое дерево, удача',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Перт'), 'upright',
                                                   'Раскрытие тайны, неожиданный поворот судьбы, интуитивное знание. Доверьтесь процессу, даже если не понимаете его.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Перт'), 'reversed', 'Фруктовое дерево, удача',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Перт'), 'reversed',
                                                   'Скрытая информация, нераскрытые секреты. Что-то от вас скрывают — или вы сами прячете от себя правду.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Альгиз'), 'upright', 'Лось, защита, божественность, духовность',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Альгиз'), 'upright',
                                                   'Мощная защита, духовное руководство, безопасность. Вы защищены. Следуйте интуиции — она не подведёт.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Альгиз'), 'reversed', 'Лось, защита, божественность, духовность',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Альгиз'), 'reversed',
                                                   'Уязвимость, отсутствие защиты. Будьте осторожны. Не лезьте в рискованные ситуации.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Совило'), 'upright', 'Солнце',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Совило'), 'upright',
                                                   'Победа, успех, жизненная сила. Солнце светит на вас. Хорошее время для любых начинаний. Успех гарантирован, если вы действуете.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Тейваз'), 'upright', 'Справедливость, честность, честь',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Тейваз'), 'upright',
                                                   'Победа в честной борьбе, справедливость, мужество. Отстаивайте свои принципы — правда на вашей стороне.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Тейваз'), 'reversed', 'Справедливость, честность, честь',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Тейваз'), 'reversed',
                                                   'Поражение, несправедливость, трусость. Возможно, вы отступили от своих принципов — или борьба не стоит усилий.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Беркана'), 'upright', 'Берёза',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Беркана'), 'upright',
                                                   'Новое начало, рождение (буквальное или метафорическое), рост. Что-то новое зарождается в вашей жизни. Заботьтесь об этом.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Беркана'), 'reversed', 'Берёза',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Беркана'), 'reversed',
                                                   'Застой в росте, проблемы с семьёй, бесплодные усилия. Проверьте, не мешает ли что-то естественному развитию.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Эваз'), 'upright', 'Лошадь, гармония, сотрудничество',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Эваз'), 'upright',
                                                   'Прогресс в партнёрстве, гармоничное движение вперёд, доверие. Вы и ваш партнёр (деловой, романтический) движетесь в одном направлении.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Эваз'), 'reversed', 'Лошадь, гармония, сотрудничество',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Эваз'), 'reversed',
                                                   'Проблемы в партнёрстве, недоверие, движение в разных направлениях. Нужен честный разговор.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Манназ'), 'upright', 'Человек, человечество',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Манназ'), 'upright',
                                                   'Самопознание, помощь от других людей, связь с обществом. Посмотрите на себя честно. Примите помощь, если предлагают.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Манназ'), 'reversed', 'Человек, человечество',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Манназ'), 'reversed',
                                                   'Одиночество, самообман, конфликт с обществом. Вы изолируете себя — или обманываете относительно своих мотивов.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Лагуз'), 'upright', 'Озеро, океан, вода',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Лагуз'), 'upright',
                                                   'Следуйте потоку, доверьтесь интуиции, эмоциональная ясность. Не сопротивляйтесь — плывите.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Лагуз'), 'reversed', 'Озеро, океан, вода',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Лагуз'), 'reversed',
                                                   'Эмоциональный хаос, страхи, противодействие естественному ходу. Вы плывёте против течения и выдыхаетесь.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Ингуз'), 'upright', 'Созревание, внутренний рост, движение',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Ингуз'), 'upright',
                                                   'Завершение этапа, реализация потенциала, плодородие. Семена, которые вы посадили, готовы взойти. Завершите начатое — результат будет.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Дагаз'), 'upright', 'День, прорыв',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Дагаз'), 'upright',
                                                   'Прорыв, озарение, трансформация. Ночь заканчивается, наступает новый день. Радикальные позитивные перемены.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Одал'), 'upright', 'Наследие, родовое имущество',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Одал'), 'upright',
                                                   'Наследство, семейные связи, традиции. Опирайтесь на опыт рода. Возможно, буквальное наследство или помощь от семьи.'),
                                                                     
-                                                 ((SELECT id FROM runes WHERE name_ru = 'Одал'), 'reversed', 'Наследие, родовое имущество',
+                                                 ((SELECT id FROM runes WHERE name_ru = 'Одал'), 'reversed',
                                                   'Потеря наследства, разрыв с семьёй, бездомность. Проверьте, не отрезали ли вы себя от корней.');

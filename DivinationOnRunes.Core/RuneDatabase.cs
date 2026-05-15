@@ -21,9 +21,10 @@ public class RuneDatabase
                     r.futhark_order,
                     r.name_ru,
                     r.name_eng,
+                    r.symbol,
                     r.is_reversible,
                     m.orientation,
-                    m.meaning_short,
+                    r.meaning_short,
                     m.meaning_text
             FROM    runes r
             JOIN    rune_meanings m ON m.rune_id = r.id
@@ -44,10 +45,11 @@ public class RuneDatabase
             short futharkOrder = reader.GetInt16(1);
             string nameRu = reader.GetString(2);
             string nameEng = reader.GetString(3);
-            bool isReversible = reader.GetBoolean(4);
-            string orientation = reader.GetString(5);
-            string meaningShort = reader.GetString(6);
-            string meaningText = reader.GetString(7);
+            char symbol = reader.GetChar(4);
+            bool isReversible = reader.GetBoolean(5);
+            string orientation = reader.GetString(6);
+            string meaningShort = reader.GetString(7);
+            string meaningText = reader.GetString(8);
 
             if (!runesById.TryGetValue(id, out RuneBuilder? runeBuilder))
             {
@@ -57,6 +59,7 @@ public class RuneDatabase
                     FutharkOrder = futharkOrder,
                     NameRu = nameRu,
                     NameEng = nameEng,
+                    Symbol = symbol,
                     IsReversible = isReversible,
                     ShortMeaning = meaningShort,
                 };
@@ -76,6 +79,7 @@ public class RuneDatabase
                 id: b.Id,
                 name: b.NameRu,
                 englishName: b.NameEng,
+                symbol: b.Symbol,
                 shortMeaning: b.ShortMeaning,
                 uprightMeaning: b.UprightMeaning ?? "",
                 reversedMeaning: b.ReversedMeaning ?? "",
@@ -87,10 +91,11 @@ public class RuneDatabase
     {
         public int Id { get; set; }
         public short FutharkOrder { get; set; }
-        public string NameRu { get; set; }
-        public string NameEng { get; set; }
+        public string NameRu { get; set; } = "";
+        public string NameEng { get; set; } = "";
+        public char Symbol { get; set; }
         public bool IsReversible { get; set; }
-        public string ShortMeaning { get; set; }
+        public string ShortMeaning { get; set; } = "";
         public string? UprightMeaning { get; set; }
         public string? ReversedMeaning { get; set; }
     }
