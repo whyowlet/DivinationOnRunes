@@ -14,11 +14,11 @@ public class DivinationServiceTests
                 id: i,
                 name: $"Руна — {i}",
                 englishName: $"Rune — {i}",
-                symbol: char.Parse(i.ToString().First().ToString()),
+                symbol: '*',
                 shortMeaning: $"Краткое — {i}",
                 uprightMeaning: $"Прямое — {i}",
                 reversedMeaning: $"Перевёрнутое — {i}",
-                isReversible: true));
+                isReversible: i % 2 == 0));
         }
         
         return runes;
@@ -45,6 +45,16 @@ public class DivinationServiceTests
     }
 
     [Fact]
+    public void Divine_AnswerSpread_ReturnsCorrectPositionNames()
+    {
+        DivinationService divinationService = new DivinationService(CreateTestRunes());
+        
+        DivinationResult divinationResult = divinationService.Divine("Вопрос", SpreadType.Answer);
+        
+        Assert.Equal("Ответ", divinationResult.Runes[0].Position);
+    }
+    
+    [Fact]
     public void Divine_PastPresentFutureSpread_ReturnsCorrectPositionNames()
     {
         DivinationService divinationService = new DivinationService(CreateTestRunes());
@@ -54,6 +64,18 @@ public class DivinationServiceTests
         Assert.Equal("Прошлое", divinationResult.Runes[0].Position);
         Assert.Equal("Настоящее", divinationResult.Runes[1].Position);
         Assert.Equal("Будущее", divinationResult.Runes[2].Position);
+    }
+    
+    [Fact]
+    public void Divine_SituationObstacleAdviceSpread_ReturnsCorrectPositionNames()
+    {
+        DivinationService divinationService = new DivinationService(CreateTestRunes());
+        
+        DivinationResult divinationResult = divinationService.Divine("Вопрос", SpreadType.SituationObstacleAdvice);
+        
+        Assert.Equal("Ситуация", divinationResult.Runes[0].Position);
+        Assert.Equal("Препятствие", divinationResult.Runes[1].Position);
+        Assert.Equal("Совет", divinationResult.Runes[2].Position);
     }
 
     [Fact]
@@ -114,10 +136,12 @@ public class DivinationServiceTests
         
         for (int i = 0; i < divinationResult1.Runes.Count; i++)
         {
+            Assert.Equal(divinationResult1.Runes[i].Rune.Id, divinationResult2.Runes[i].Rune.Id);
             Assert.Equal(divinationResult1.Runes[i].Rune.Name, divinationResult2.Runes[i].Rune.Name);
             Assert.Equal(divinationResult1.Runes[i].Rune.EnglishName, divinationResult2.Runes[i].Rune.EnglishName);
             Assert.Equal(divinationResult1.Runes[i].Rune.Symbol, divinationResult2.Runes[i].Rune.Symbol);
             Assert.Equal(divinationResult1.Runes[i].Rune.ShortMeaning, divinationResult2.Runes[i].Rune.ShortMeaning);
+            Assert.Equal(divinationResult1.Runes[i].IsReversed, divinationResult2.Runes[i].IsReversed);
         }
     }
 
