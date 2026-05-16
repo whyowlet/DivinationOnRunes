@@ -485,3 +485,6 @@ $RECYCLE.BIN/
 
 # Local settings
 appsettings.Local.json
+
+# Test coverage report
+CoverageReport
